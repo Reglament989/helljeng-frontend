@@ -155,6 +155,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "3.0.2"
+  cryptography:
+    dependency: transitive
+    description:
+      name: cryptography
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.5"
+  cryptography_flutter:
+    dependency: transitive
+    description:
+      name: cryptography_flutter
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "2.0.2"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -266,9 +280,11 @@ packages:
   hj_lib:
     dependency: "direct main"
     description:
-      path: "/home/h/Private/work/golang/helljeng-backend/sdk/dart"
-      relative: false
-    source: path
+      path: "."
+      ref: HEAD
+      resolved-ref: "89869198d2d5af5acecdad26052528bacc3e2d65"
+      url: "git@github.com:Reglament989/helljeng-dart-sdk.git"
+    source: git
     version: "0.0.1"
   http2:
     dependency: transitive
