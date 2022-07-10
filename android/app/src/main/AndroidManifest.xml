@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="io.arries.hj.hj_frontend">
+   <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="hj_frontend"
         android:name="${applicationName}"

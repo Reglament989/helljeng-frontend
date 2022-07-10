@@ -25,6 +25,12 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply from: "$flutterRoot/packages/flutter_tools/gradle/flutter.gradle"
 
+def keystoreProperties = new Properties()
+def keystorePropertiesFile = rootProject.file('key.properties')
+if (keystorePropertiesFile.exists()) {
+    keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
+}
+
 android {
     compileSdkVersion flutter.compileSdkVersion
     ndkVersion flutter.ndkVersion
@@ -51,24 +57,39 @@ android {
         targetSdkVersion flutter.targetSdkVersion
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+        
+        
+    }
+
+    signingConfigs {
+        release {
+            keyAlias keystoreProperties['keyAlias']
+            keyPassword keystoreProperties['keyPassword']
+            storeFile keystoreProperties['storeFile'] ? file(keystoreProperties['storeFile']) : null
+            storePassword keystoreProperties['storePassword']
+        }
     }
 
     buildTypes {
         release {
             // TODO: Add your own signing config for the release build.
             // Signing with the debug keys for now, so `flutter run --release` works.
-            signingConfig signingConfigs.debug
+            signingConfig signingConfigs.release
+            ndk {
+                abiFilters 'arm64-v8a', 'armeabi-v7a', 'x86_64'
+                debugSymbolLevel 'FULL'
+            }
         }
     }
 }
 
-apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
+//apply plugin: 'org.mozilla.rust-android-gradle.rust-android'
 
-cargo {
-    module  = "/home/h/Private/work/golang/helljeng-backend/sdk/ffi"       // Or whatever directory contains your Cargo.toml
-    libname = "native"          // Or whatever matches Cargo.toml's [package] name.
-    targets = ["arm64"]  // See bellow for a longer list of options
-}
+//cargo {
+//    module  = "/home/h/Private/work/golang/helljeng-backend/sdk/ffi"       // Or whatever directory contains your Cargo.toml
+//    libname = "native"          // Or whatever matches Cargo.toml's [package] name.
+//    targets = ["arm64"]  // See bellow for a longer list of options
+// }
 
 flutter {
     source '../..'
