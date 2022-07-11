@@ -257,12 +257,12 @@ class SearchBar extends StatelessWidget {
       ),
       trailing: Icon(Icons.edit),
       title: TextField(
-        style: TextStyle(fontSize: 21),
+        style: TextStyle(fontSize: 20),
         decoration: InputDecoration(
             border: InputBorder.none,
             hintText: 'Search',
             hintStyle:
-                TextStyle(color: Colors.black54, fontWeight: FontWeight.bold)),
+                TextStyle(color: Colors.black54, fontWeight: FontWeight.w600)),
       ),
     );
   }

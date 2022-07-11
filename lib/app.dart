@@ -22,7 +22,7 @@ class App extends StatelessWidget {
         LoginView.route: (context) => const LoginView(),
         RoomView.route: (context) => const RoomView()
       },
-      home: const HomeView(),
+      home: const LoginView(),
     );
   }
 }
