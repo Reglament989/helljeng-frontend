@@ -18,6 +18,7 @@ class _HomeViewState extends State<HomeView> {
   final appBars = [SearchBar(), SearchBar(), SettingsBar()];
 
   void _onItemTapped(int index) {
+    print("tapped $index");
     setState(() {
       _pageController.animateToPage(index,
           curve: Curves.easeOut, duration: Duration(milliseconds: 300));
@@ -49,7 +50,11 @@ class _HomeViewState extends State<HomeView> {
       body: PageView(
           physics: AlwaysScrollableScrollPhysics(),
           controller: _pageController,
-          onPageChanged: _onItemTapped,
+          onPageChanged: (index) {
+            setState(() {
+              _selectedIndex = index;
+            });
+          },
           children: const [
             RoomList(),
             ColoredBox(color: Colors.amber),
@@ -73,7 +78,7 @@ class _HomeViewState extends State<HomeView> {
               items: const <BottomNavigationBarItem>[
                 BottomNavigationBarItem(
                     icon: Icon(
-                      Icons.web,
+                      Icons.public,
                       size: 28,
                     ),
                     label: ""),
@@ -257,10 +262,10 @@ class SearchBar extends StatelessWidget {
       ),
       trailing: Icon(Icons.edit),
       title: TextField(
-        style: TextStyle(fontSize: 20),
+        style: TextStyle(fontSize: 18),
         decoration: InputDecoration(
             border: InputBorder.none,
-            hintText: 'Search',
+            hintText: 'Search room',
             hintStyle:
                 TextStyle(color: Colors.black54, fontWeight: FontWeight.w600)),
       ),

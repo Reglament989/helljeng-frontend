@@ -3,10 +3,17 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
-class RoomView extends StatelessWidget {
+class RoomView extends StatefulWidget {
   const RoomView({Key? key}) : super(key: key);
   static String route = "/room";
 
+  @override
+  State<RoomView> createState() => _RoomViewState();
+}
+
+class _RoomViewState extends State<RoomView> {
+  List<String> fakeMessages = ["Its just a test", "For real?", "No Jhonny"];
+  TextEditingController _controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -47,6 +54,9 @@ class RoomView extends StatelessWidget {
             ),
           ],
         ),
+        flexibleSpace: InkWell(
+          onTap: () {},
+        ),
         title: Text(
           ModalRoute.of(context)!.settings.arguments as String,
           style: TextStyle(
@@ -66,13 +76,24 @@ class RoomView extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.only(left: 8.0),
                   child: TextField(
+                    controller: _controller,
+                    textCapitalization: TextCapitalization.sentences,
                     decoration: InputDecoration(
                         border: InputBorder.none, hintText: "Message"),
                   ),
                 ),
               ),
               IconButton(onPressed: () {}, icon: Icon(Icons.more_vert)),
-              IconButton(onPressed: () {}, icon: Icon(Icons.send)),
+              IconButton(
+                  onPressed: () {
+                    if (_controller.text.isNotEmpty) {
+                      setState(() {
+                        fakeMessages.add(_controller.text.trim());
+                      });
+                      _controller.clear();
+                    }
+                  },
+                  icon: Icon(Icons.send)),
             ],
           ),
         ),
@@ -87,10 +108,11 @@ class RoomView extends StatelessWidget {
                     const EdgeInsets.only(right: 8.0, left: 8.0, bottom: 4.0),
                 child: ListView.builder(
                     reverse: true,
+                    itemCount: fakeMessages.length,
                     itemBuilder: (context, index) => MessageBubble(
                           out: index.isEven,
-                          senderName: "Sender #$index",
-                          text: "I love you",
+                          senderName: index.isEven ? "Jhonny" : "Billy",
+                          text: fakeMessages.reversed.elementAt(index),
                           datetime: DateTime.now(),
                         )),
               ),
